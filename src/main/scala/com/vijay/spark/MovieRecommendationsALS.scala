@@ -1,4 +1,4 @@
-package com.sundogsoftware.spark
+package com.vijay.spark
 
 import org.apache.log4j._
 import scala.io.Source
