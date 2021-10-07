@@ -8,13 +8,13 @@ import org.apache.log4j._
 object TotalSpentByCustomerSorted {
   
   /** Convert input data to (customerID, amountSpent) tuples */
-  def extractCustomerPricePairs(line: String) = {
-    var fields = line.split(",")
+  def extractCustomerPricePairs(line: String): (Int, Float) = {
+    val fields = line.split(",")
     (fields(0).toInt, fields(2).toFloat)
   }
  
   /** Our main function where the action happens */
-  def main(args: Array[String]) {
+  def main(args: Array[String]): Unit = {
    
     // Set the log level to only print errors
     Logger.getLogger("org").setLevel(Level.ERROR)
