@@ -22,7 +22,7 @@ object TotalSpentByCustomerSorted {
      // Create a SparkContext using every core of the local machine
     val sc = new SparkContext("local[*]", "TotalSpentByCustomerSorted")   
     
-    val input = sc.textFile("../customer-orders.csv")
+    val input = sc.textFile("customer-orders.csv")
 
     val mappedInput = input.map(extractCustomerPricePairs)
     

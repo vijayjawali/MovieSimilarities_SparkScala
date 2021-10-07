@@ -27,13 +27,12 @@ object DataFrames {
       .builder
       .appName("SparkSQL")
       .master("local[*]")
-      .config("spark.sql.warehouse.dir", "file:///C:/temp") // Necessary to work around a Windows bug in Spark 2.0.0; omit if you're not on Windows.
       .getOrCreate()
     
     // Convert our csv file to a DataSet, using our Person case
     // class to infer the schema.
     import spark.implicits._
-    val lines = spark.sparkContext.textFile("../fakefriends.csv")
+    val lines = spark.sparkContext.textFile("fakefriends.csv")
     val people = lines.map(mapper).toDS().cache()
     
     // There are lots of other ways to make a DataFrame.
