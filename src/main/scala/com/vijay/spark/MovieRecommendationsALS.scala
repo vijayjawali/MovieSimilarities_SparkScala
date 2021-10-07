@@ -77,17 +77,18 @@ object MovieRecommendationsALS {
     
     // Display them (oddly, this is the hardest part!)
     println("\nTop 10 recommendations for user ID " + userID + ":")
- 
-    for (userRecs <- recommendations) {
-      val myRecs = userRecs(1) // First column is userID, second is the recs
-      val temp = myRecs.asInstanceOf[WrappedArray[Row]] // Tell Scala what it is
-      for (rec <- temp) {
-        val movie = rec.getAs[Int](0)
-        val rating = rec.getAs[Float](1)
-        val movieName = nameDict(movie)
-        println(movieName, rating)
-      }
-    }
+
+    recommendations
+      .foreach(userRecs => {
+        val myRecs = userRecs(1) // First column is userID, second is the recs
+        val temp = myRecs.asInstanceOf[WrappedArray[Row]] // Tell Scala what it is
+        for (rec <- temp) {
+          val movie = rec.getAs[Int](0)
+          val rating = rec.getAs[Float](1)
+          val movieName = nameDict(movie)
+          println(movieName, rating)
+        }
+      })
     
     // Stop the session
     spark.stop()
