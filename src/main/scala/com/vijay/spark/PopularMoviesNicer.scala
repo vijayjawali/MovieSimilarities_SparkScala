@@ -19,9 +19,9 @@ object PopularMoviesNicer {
     // Create a Map of Ints to Strings, and populate it from u.item.
     var movieNames:Map[Int, String] = Map()
     
-     val lines = Source.fromFile("../ml-100k/u.item").getLines()
+     val lines = Source.fromFile("F:/Datasets/ml-100k/u.item").getLines()
      for (line <- lines) {
-       var fields = line.split('|')
+       val fields = line.split('|')
        if (fields.length > 1) {
         movieNames += (fields(0).toInt -> fields(1))
        }
@@ -43,7 +43,7 @@ object PopularMoviesNicer {
     var nameDict = sc.broadcast(loadMovieNames)
     
     // Read in each rating line
-    val lines = sc.textFile("../ml-100k/u.data")
+    val lines = sc.textFile("F:/Datasets/ml-100k/u.data")
     
     // Map to (movieID, 1) tuples
     val movies = lines.map(x => (x.split("\t")(1).toInt, 1))

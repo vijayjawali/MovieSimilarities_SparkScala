@@ -17,7 +17,7 @@ object PopularMovies {
     val sc = new SparkContext("local[*]", "PopularMovies")   
     
     // Read in each rating line
-    val lines = sc.textFile("../ml-100k/u.data")
+    val lines = sc.textFile("F:/Datasets/ml-100k/u.data")
     
     // Map to (movieID, 1) tuples
     val movies = lines.map(x => (x.split("\t")(1).toInt, 1))
@@ -29,12 +29,13 @@ object PopularMovies {
     val flipped = movieCounts.map( x => (x._2, x._1) )
     
     // Sort
-    val sortedMovies = flipped.sortByKey()
+    val sortedMovies = flipped.sortByKey(false)
     
     // Collect and print results
+
     val results = sortedMovies.collect()
-    
-    results.foreach(println)
+    println("Printing Results")
+    sortedMovies.take(10).foreach(println)
   }
   
 }
