@@ -3,10 +3,11 @@ package com.vijay.spark
 
 import org.apache.log4j._
 import org.apache.spark.sql.{SparkSession, functions}
-import org.apache.spark.sql.functions.{col, desc, length, max, regexp_extract, regexp_replace, sum, trim}
+import org.apache.spark.sql.functions.{col, desc, length, max, min, regexp_extract, regexp_replace, sum, trim}
 import org.apache.spark.sql.types.{IntegerType, StringType, StructType}
 
-object MostPopularSuperheroDataset {
+
+object MostObscureSuperheroDataset {
 
   case class SuperHeroNames(id:Int, name: String)
   case class SuperHero(value: String)
@@ -18,7 +19,7 @@ object MostPopularSuperheroDataset {
 
     val spark = SparkSession
       .builder
-      .appName("PopularSuperHero")
+      .appName("ObscureSuperHero")
       .master("local[*]")
       .getOrCreate()
 
@@ -43,7 +44,9 @@ object MostPopularSuperheroDataset {
       .groupBy("id")
       .agg(sum("connections").alias("connections"))
 
-    val maxConnections = connections.orderBy(desc("connections")).limit(1)
+    val obscureValue = connections.agg(min(col("connections"))).first().getLong(0)
+
+    val maxConnections = connections.filter(col("connections") === obscureValue)
 
     val superheroName =  maxConnections.join(names,maxConnections("id") === names("id"),"inner").drop("id")
 
