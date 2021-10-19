@@ -1,6 +1,7 @@
 package com.vijay.spark
 
 import org.apache.log4j.{Level, Logger}
+import org.apache.spark.executor.DataReadMethod
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{Dataset, SparkSession}
 import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructType}
@@ -23,7 +24,7 @@ object MovieSimilaritiesDataset {
     val calculateSimilarity = pairScores
       .groupBy("movie1", "movie2")
       .agg(sum(col("xy")).alias("numerator"),
-        (sqrt(sum(col(("xx")))) * sqrt(sum(col(("yy"))))).alias("denominator"),
+        (sqrt(sum(col("xx"))) * sqrt(sum(col(("yy"))))).alias("denominator"),
         count(col("xy")).alias("numPairs"))
 
     import spark.implicits._
@@ -49,7 +50,9 @@ object MovieSimilaritiesDataset {
   def main(args: Array[String]): Unit = {
 
     // Set the log level to only print errors
-    Logger.getLogger("org").setLevel(Level.ERROR)
+    // Logger.getLogger("org").setLevel(Level.ERROR)
+
+    System.setProperty("hadoop.home.dir", "C:\\Hadoop\\")
 
     val spark = SparkSession.builder
       .appName("MovieSimilarities")

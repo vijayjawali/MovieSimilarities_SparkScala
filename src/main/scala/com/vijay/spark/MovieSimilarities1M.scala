@@ -161,7 +161,7 @@ object MovieSimilarities1M {
           similarMovieID = pair._2
         }
         println(nameDict(similarMovieID) + "\tscore: " + sim._1 + "\tstrength: " + sim._2)
-      }
+      } 
     }
   }
 }
