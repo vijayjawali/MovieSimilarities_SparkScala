@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="SparkCourse">
-    <output-path>$PROJECT_DIR$/out/artifacts/SparkCourse</output-path>
-    <root id="archive" name="SparkCourse.jar">
-      <element id="module-output" name="MovieSimilarities1M" />
-    </root>
-  </artifact>
-</component>
